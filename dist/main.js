@@ -1,0 +1,1 @@
+(()=>{"use strict";console.log("hello from index .js"),console.log("hello from app hello from app1")})();

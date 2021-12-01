@@ -1,0 +1,29 @@
+{
+  "name": "react_training",
+  "version": "1.0.0",
+  "description": "React Training",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yash4887/ramakrishnan_react.git"
+  },
+  "keywords": [
+    "React",
+    "Javascript",
+    "ES6"
+  ],
+  "author": "Yash Modi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yash4887/ramakrishnan_react/issues"
+  },
+  "homepage": "https://github.com/Yash4887/ramakrishnan_react#readme",
+  "devDependencies": {
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1"
+  }
+}
