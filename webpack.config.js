@@ -7,7 +7,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "my-first-webpack.bundle.js",
   },
-  mode: "development",
+  mode: "production",
   module: {
     rules: [
       {
