@@ -5,9 +5,9 @@ module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "my-first-webpack.bundle.js",
+    filename: "main.js",
   },
-  mode: "production",
+  mode: "development",
   module: {
     rules: [
       {

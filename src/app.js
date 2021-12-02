@@ -1,12 +1,14 @@
-export const app = "hello from app";
+import React from 'react';
+import Header from "./Header";
+import Banner from "./Banner";
 
-export const app1 = "hello from app1";
+const App = () => {
+  return (
+    <>
+      <Header />
+      <Banner />
+    </>
+  );
+};
 
-const loadData = () => {
-    return `${app} ${app1}`
-}
-
-
-// per file only 1 export default is allowed
-export default loadData;
-
+export default App;
