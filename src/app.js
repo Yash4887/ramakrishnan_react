@@ -15,7 +15,7 @@ import Footer from './Footer';
 const App = () => (
   <>
     <Header />
-    <Banner title="Hello Yagnesh" />
+    <Banner name="Yagnesh" />
     <Footer />
   </>
 );
