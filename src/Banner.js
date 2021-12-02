@@ -1,15 +1,13 @@
 import React from 'react';
 
-const Banner = () => {
-  return (
-    <section
-      id="banner"
-      style={{
-        height: "100vh",
-        backgroundColor: "grey",
-      }}
-    ></section>
-  );
-};
+const Banner = () => (
+  <section
+    id="banner"
+    style={{
+      height: '100vh',
+      backgroundColor: 'grey',
+    }}
+  />
+);
 
 export default Banner;
