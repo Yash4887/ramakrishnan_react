@@ -9,7 +9,9 @@ import Child2 from './Child2';
 // FIrst life cycle method of mounting stage
 // Manipulate Data before display on browser
 
-// Mounting
+// Life Cycle Method is available in Class Component only
+
+// Mounting (stage 1)
 // -> Constructor(call only once)
 // -> 1. Derive State value base on Props
 // -> 2. Bind Noramal Methods(so we can use this pointer in methods)
@@ -19,23 +21,30 @@ import Child2 from './Child2';
 // -> 1. Derive New State value base on props or old state value;
 
 // -> Render
-// -> 1. Render HTML
+// -> 1. Render HTML On DOM
 
-// -> ComponentDidMount
+// -> ComponentDidMount(call only once)
 // -> 1. Display data on component Load
 // -> 2. Register an event
 // -> 3. Manipulate DOM
 
 // Updating (Props or State)
-// 1. GetDerivedStateFromProps
-// 2. ShouldComponentUpdate
-// 3. Render
+// 1. GetDerivedStateFromProps(Mounting)
+// 2. ShouldComponentUpdate(Most imp Life Cycle method to performance)
+// -> Helps Avoid unnecessary Rerendering
+// 3. Render(Mounting)
 // 4. getSnapshotBeforeUpdate
+// -> To capture current screen so after update we can manipulate
 // 5. ComponentDidUpdate
+// -> Manipulate DOM
 
 // Unmount
+// componentWillUnmount
+// -> remove events, clock events, server requests
 
 // Error
+// -> getDerivedStateFromError
+// -> componentDidCatch
 
 class Banner extends Component {
   state = {
@@ -87,6 +96,14 @@ class Banner extends Component {
 
   // }
 
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    return 'hello';
+  }
+
+  componentDidUpdate(prevProps, prevState, snapShot) {
+    console.log(snapShot);
+  }
+
   decrementCounter = () => {
     this.setState({
       counter: this.state.counter - 1,
@@ -99,8 +116,22 @@ class Banner extends Component {
     });
   };
 
+  static getDerivedStateFromError(error) {
+    return {
+      error: error,
+    };
+  }
+
+  componentDidCatch(error, info) {
+    // used to log error on server
+  }
+
   render() {
     console.log('render Banner');
+    if (this.state.error) {
+      return <h1>{this.state.error.message}</h1>;
+    }
+
     return (
       <section
         id="banner"
@@ -119,7 +150,7 @@ class Banner extends Component {
         </button>
 
         <Child1 />
-        <Child2 />
+        {this.state.counter < 5 && <Child2 />}
       </section>
     );
   }
