@@ -1,29 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, createRef } from 'react';
 import './todoStyle.css';
 
 class Todo extends Component {
   state = {
-    todoText: '',
+    // todoText: '',
     todoList: [],
   };
 
-  onChangeText = (event) => {
-    this.setState({
-      todoText: event.target.value,
-    });
-  };
+  todoRef = createRef();
+
+  // onChangeText = (event) => {
+  //   this.setState({
+  //     todoText: event.target.value,
+  //   });
+  // };
 
   addTodo = (event) => {
     event.preventDefault();
-    this.setState(({ todoText, todoList }) => ({
-      todoList: [...todoList, todoText],
-    }));
+    this.setState(
+      ({ todoList }) => {
+        // const todoText = document.getElementById('todo').value;
+        const todoText = this.todoRef.current.value;
+        return {
+          todoList: [{ text: todoText, id: new Date().valueOf() }, ...todoList],
+        };
+      },
+      () => {
+        this.todoRef.current.value = '';
+      },
+    );
   };
 
   render() {
     console.log('render');
 
-    const { todoText } = this.state;
+    const { todoList } = this.state;
 
     return (
       <div className="container">
@@ -31,42 +42,24 @@ class Todo extends Component {
 
         <form onSubmit={this.addTodo}>
           <input
+            ref={this.todoRef}
             type="text"
-            value={todoText}
+            // value={todoText}
             name="todo"
             id="todo"
-            onChange={this.onChangeText}
+            // onChange={this.onChangeText}
           />
           <input type="submit" value="Add Todo" />
         </form>
 
         <div className="todo-list">
-          <div className="todo-item">
-            <input type="checkbox" name="isDone" id="isDone" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio,
-              nihil.
-            </p>
-            <button type="button">Delete</button>
-          </div>
-
-          <div className="todo-item">
-            <input type="checkbox" name="isDone" id="isDone" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio,
-              nihil.
-            </p>
-            <button type="button">Delete</button>
-          </div>
-
-          <div className="todo-item">
-            <input type="checkbox" name="isDone" id="isDone" />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio,
-              nihil.
-            </p>
-            <button type="button">Delete</button>
-          </div>
+          {todoList.map((item) => (
+            <div className="todo-item" key={item.id}>
+              <input type="checkbox" name="isDone" id="isDone" />
+              <p>{item.text}</p>
+              <button type="button">Delete</button>
+            </div>
+          ))}
         </div>
 
         <div className="filter-section">
