@@ -2,13 +2,41 @@ import React, { Component } from 'react';
 import './todoStyle.css';
 
 class Todo extends Component {
+  state = {
+    todoText: '',
+    todoList: [],
+  };
+
+  onChangeText = (event) => {
+    this.setState({
+      todoText: event.target.value,
+    });
+  };
+
+  addTodo = (event) => {
+    event.preventDefault();
+    this.setState(({ todoText, todoList }) => ({
+      todoList: [...todoList, todoText],
+    }));
+  };
+
   render() {
+    console.log('render');
+
+    const { todoText } = this.state;
+
     return (
       <div className="container">
         <h1>Todo App</h1>
 
-        <form>
-          <input type="text" name="todo" id="todo" />
+        <form onSubmit={this.addTodo}>
+          <input
+            type="text"
+            value={todoText}
+            name="todo"
+            id="todo"
+            onChange={this.onChangeText}
+          />
           <input type="submit" value="Add Todo" />
         </form>
 

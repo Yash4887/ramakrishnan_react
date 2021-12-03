@@ -16,5 +16,6 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/function-component-definition': 0,
+    'react/state-in-constructor': 0,
   },
 };
