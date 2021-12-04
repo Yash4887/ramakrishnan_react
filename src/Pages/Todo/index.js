@@ -32,6 +32,8 @@ class Todo extends Component {
   };
 
   render() {
+    console.log('render');
+
     const { todoList } = this.state;
 
     return (
