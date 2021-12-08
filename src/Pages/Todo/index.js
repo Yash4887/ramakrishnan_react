@@ -45,6 +45,12 @@ class Todo extends Component {
     }));
   };
 
+  deleteTodo = (item) => {
+    this.setState(({ todoList }) => ({
+      todoList: todoList.filter((x) => x.id !== item.id),
+    }));
+  };
+
   render() {
     console.log('render');
 
@@ -83,7 +89,9 @@ class Todo extends Component {
               >
                 {item.text}
               </p>
-              <button type="button">Delete</button>
+              <button type="button" onClick={() => this.deleteTodo(item)}>
+                Delete
+              </button>
             </div>
           ))}
         </div>
