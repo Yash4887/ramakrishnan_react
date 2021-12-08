@@ -22,13 +22,27 @@ class Todo extends Component {
         // const todoText = document.getElementById('todo').value;
         const todoText = this.todoRef.current.value;
         return {
-          todoList: [{ text: todoText, id: new Date().valueOf() }, ...todoList],
+          todoList: [
+            { text: todoText, id: new Date().valueOf(), isDone: false },
+            ...todoList,
+          ],
         };
       },
       () => {
         this.todoRef.current.value = '';
       },
     );
+  };
+
+  toggleTodoStatus = (item) => {
+    this.setState(({ todoList }) => ({
+      todoList: todoList.map((element) => {
+        if (element.id === item.id) {
+          return { ...element, isDone: !element.isDone };
+        }
+        return element;
+      }),
+    }));
   };
 
   render() {
@@ -55,8 +69,20 @@ class Todo extends Component {
         <div className="todo-list">
           {todoList.map((item) => (
             <div className="todo-item" key={item.id}>
-              <input type="checkbox" name="isDone" id="isDone" />
-              <p>{item.text}</p>
+              <input
+                type="checkbox"
+                name="isDone"
+                id="isDone"
+                checked={item.isDone}
+                onChange={() => this.toggleTodoStatus(item)}
+              />
+              <p
+                style={{
+                  textDecoration: item.isDone ? 'line-through' : 'none',
+                }}
+              >
+                {item.text}
+              </p>
               <button type="button">Delete</button>
             </div>
           ))}
