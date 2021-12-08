@@ -14,8 +14,10 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'object-curly-newline': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/function-component-definition': 0,
     'react/state-in-constructor': 0,
+    'react/jsx-props-no-spreading': 0,
   },
 };
