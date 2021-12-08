@@ -2,12 +2,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-const TodoList = ({
-  todoList,
-  filterType,
-  handleTodoStatus,
-  handleDeleteTodo,
-}) => (
+const TodoList = ({ todoList, filterType, handleTodoStatus, handleDeleteTodo }) => (
   <div className="todo-list">
     {todoList
       .filter((item) => {

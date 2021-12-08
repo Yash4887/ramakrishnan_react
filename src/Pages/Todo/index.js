@@ -13,19 +13,50 @@ class Todo extends PureComponent {
 
   todoRef = createRef();
 
-  addTodo = (event) => {
-    event.preventDefault();
-    this.setState(
-      ({ todoList }) => {
-        const todoText = this.todoRef.current.value;
-        return {
-          todoList: [{ text: todoText, id: new Date().valueOf(), isDone: false }, ...todoList],
-        };
-      },
-      () => {
-        this.todoRef.current.value = '';
-      },
-    );
+  async componentDidMount() {
+    this.loadTodoData();
+  }
+
+  loadTodoData = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/todo-list');
+      const todoList = await res.json();
+      this.setState({
+        todoList,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  addTodo = async (event) => {
+    try {
+      event.preventDefault();
+      const data = {
+        text: this.todoRef.current.value,
+        isDone: false,
+      };
+      const res = await fetch('http://localhost:3000/todo-list', {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+
+      const json = await res.json();
+      this.setState(
+        ({ todoList }) => ({
+          todoList: [...todoList, json],
+        }),
+        () => {
+          this.todoRef.current.value = '';
+        },
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   toggleTodoStatus = (item) => {
