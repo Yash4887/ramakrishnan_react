@@ -33,10 +33,18 @@
   padding: 0 10px;
 }
 
+.todo-item > p.isCompleted {
+  text-decoration: line-through;
+}
+
 .filter-section {
   display: flex;
 }
 
 .filter-section > button {
   flex-grow: 1;
+}
+
+.filter-section > button.active {
+  border-color: red;
 }

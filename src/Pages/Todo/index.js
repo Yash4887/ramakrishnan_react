@@ -1,10 +1,12 @@
 import React, { Component, createRef } from 'react';
+import cn from 'classnames';
 import './todoStyle.css';
 
 class Todo extends Component {
   state = {
     // todoText: '',
     todoList: [],
+    filterType: 'all',
   };
 
   todoRef = createRef();
@@ -51,10 +53,16 @@ class Todo extends Component {
     }));
   };
 
+  changeFilterStatus = (filterType) => {
+    this.setState({
+      filterType,
+    });
+  };
+
   render() {
     console.log('render');
 
-    const { todoList } = this.state;
+    const { todoList, filterType } = this.state;
 
     return (
       <div className="container">
@@ -73,33 +81,70 @@ class Todo extends Component {
         </form>
 
         <div className="todo-list">
-          {todoList.map((item) => (
-            <div className="todo-item" key={item.id}>
-              <input
-                type="checkbox"
-                name="isDone"
-                id="isDone"
-                checked={item.isDone}
-                onChange={() => this.toggleTodoStatus(item)}
-              />
-              <p
-                style={{
-                  textDecoration: item.isDone ? 'line-through' : 'none',
-                }}
-              >
-                {item.text}
-              </p>
-              <button type="button" onClick={() => this.deleteTodo(item)}>
-                Delete
-              </button>
-            </div>
-          ))}
+          {todoList
+            .filter((item) => {
+              switch (filterType) {
+                case 'pending':
+                  return item.isDone === false;
+
+                case 'completed':
+                  return item.isDone === true;
+
+                default:
+                  return true;
+              }
+            })
+            .map((item) => (
+              <div className="todo-item" key={item.id}>
+                <input
+                  type="checkbox"
+                  name="isDone"
+                  id="isDone"
+                  checked={item.isDone}
+                  onChange={() => this.toggleTodoStatus(item)}
+                />
+                <p
+                  className={cn({
+                    isCompleted: item.isDone,
+                  })}
+                >
+                  {item.text}
+                </p>
+                <button type="button" onClick={() => this.deleteTodo(item)}>
+                  Delete
+                </button>
+              </div>
+            ))}
         </div>
 
         <div className="filter-section">
-          <button type="button">All</button>
-          <button type="button">Pending</button>
-          <button type="button">Completed</button>
+          <button
+            type="button"
+            className={cn({
+              active: filterType === 'all',
+            })}
+            onClick={() => this.changeFilterStatus('all')}
+          >
+            All
+          </button>
+          <button
+            type="button"
+            className={cn({
+              active: filterType === 'pending',
+            })}
+            onClick={() => this.changeFilterStatus('pending')}
+          >
+            Pending
+          </button>
+          <button
+            type="button"
+            className={cn({
+              active: filterType === 'completed',
+            })}
+            onClick={() => this.changeFilterStatus('completed')}
+          >
+            Completed
+          </button>
         </div>
       </div>
     );
