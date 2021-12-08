@@ -20,6 +20,7 @@
 
 .todo-list {
   flex-grow: 1;
+  overflow: auto;
 }
 
 .todo-item {
