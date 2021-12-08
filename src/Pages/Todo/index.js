@@ -38,8 +38,10 @@ class Todo extends PureComponent {
   addTodo = async (event) => {
     try {
       event.preventDefault();
+      const text = this.todoRef.current.value;
+      if (!text) throw new Error('Please enter text');
       const data = {
-        text: this.todoRef.current.value,
+        text,
         isDone: false,
       };
       const res = await fetch('http://localhost:3000/todo-list', {
