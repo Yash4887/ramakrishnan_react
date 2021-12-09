@@ -1,7 +1,26 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 
 const Child1 = () => {
-  console.log('Child 1 Render');
+  // ComponentDidMount
+  // ComponentDidUpdate
+  // ComponentWillUnmount
+  useEffect(() => {
+    const mouseMove = () => {
+      console.log('mouse moved');
+    };
+    document.addEventListener('mousemove', mouseMove);
+
+    const interval = setInterval(() => {
+      console.log('interval');
+    }, 1000);
+
+    // ComponentWillUnmount
+    return () => {
+      document.removeEventListener('mousemove', mouseMove);
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div>
       <h1>Child Component</h1>

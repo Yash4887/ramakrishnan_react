@@ -1,3 +1,36 @@
+.loading {
+  text-align: center;
+  color: red;
+}
+
+.error-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-size: larger;
+}
+
+.toast {
+  position: absolute;
+  padding: 1rem;
+  background-color: rgba(255, 0, 0, 0.2);
+  width: 30vw;
+  top: 10px;
+  right: 10px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
 .container {
   display: flex;
   flex-direction: column;

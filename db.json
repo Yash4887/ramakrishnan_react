@@ -1,5 +1,11 @@
 {
-  "todo-list": [],
+  "todo-list": [
+    {
+      "text": "asdfdsf",
+      "isDone": false,
+      "id": 1
+    }
+  ],
   "weather-info": [
     {
       "id": 1,
