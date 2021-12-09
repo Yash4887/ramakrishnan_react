@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import App from './app';
 // import AppHook from './AppHook';
-import Todo from './Pages/Todo';
 
 import './root.css';
 
@@ -11,4 +12,9 @@ import './root.css';
 // Rule4: apply style as a object and style name should be in camelcase
 
 // Create Virtual DOM from provided HTML
-ReactDOM.render(<Todo />, document.getElementById('root'));
+ReactDOM.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.getElementById('root'),
+);

@@ -1,0 +1,12 @@
+main.auth {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MuiPaper-root {
+  padding: 1rem;
+  flex: 1;
+  margin: 1rem;
+}

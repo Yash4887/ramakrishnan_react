@@ -1,0 +1,12 @@
+.register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.MuiFormControl-root {
+  margin: 0.5rem 0;
+}
+
+.MuiButton-root {
+  margin: 0.5rem 0;
+}
