@@ -1,23 +1,23 @@
-import { Button, TextField } from '@mui/material';
 import React from 'react';
-import { LocaleContext } from '../../Context/localeContext';
+import FormikForm from '../../Component/FormikForm';
+import { registerFormFields, registerInitialValues } from './fields';
 import './registerStyle.css';
 
-const Register = () => (
-  <div>
-    <LocaleContext.Consumer>
-      {(value) => <h1>{`Current Language is ${value.locale}`}</h1>}
-    </LocaleContext.Consumer>
-    <form className="register-form">
-      <TextField label="Name" variant="outlined" fullWidth />
-      <TextField label="Username" variant="outlined" fullWidth />
-      <TextField label="Password" variant="outlined" fullWidth />
-      <TextField label="Confirm Password" variant="outlined" fullWidth />
-      <Button type="submit" variant="contained" fullWidth>
-        Register
-      </Button>
-    </form>
-  </div>
-);
+const Register = () => {
+  const handleRegister = (values) => {
+    console.log(values);
+  };
+
+  return (
+    <FormikForm
+      fields={registerFormFields}
+      initialValues={registerInitialValues}
+      onSubmit={handleRegister}
+      buttonProps={{
+        children: 'Register',
+      }}
+    />
+  );
+};
 
 export default Register;

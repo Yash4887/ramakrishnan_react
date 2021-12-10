@@ -1,24 +1,17 @@
-import { Button, TextField } from '@mui/material';
+import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Formik } from 'formik';
 import React from 'react';
 import './loginStyle.css';
+import FormikForm from '../../Component/FormikForm';
+import { formFields, loginInitialValues } from './fields';
 
-const loginValidate = (values) => {
-  const error = {};
-  if (!values.username) {
-    error.username = 'Required...';
-  }
-  if (!values.password) {
-    error.password = 'Required...';
-  }
-  return error;
-};
+const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
 
 const Login = () => {
   const navigate = useNavigate();
 
-  const handleLogin = (values) => {
+  const handleLogin = async (values) => {
+    await wait(3000);
     console.log(values);
   };
 
@@ -41,45 +34,14 @@ const Login = () => {
           </div>
         )}
       </LocaleContext.Consumer> */}
-      <Formik
-        initialValues={{
-          username: '',
-          password: '',
-        }}
-        validate={loginValidate}
+      <FormikForm
+        fields={formFields}
+        initialValues={loginInitialValues}
         onSubmit={handleLogin}
-      >
-        {({ values, handleChange, handleBlur, handleSubmit, errors, touched }) => (
-          <form className="login-form" onSubmit={handleSubmit}>
-            <TextField
-              label="Username"
-              variant="outlined"
-              fullWidth
-              name="username"
-              value={values.username}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.username && !!errors.username}
-              helperText={touched.username && errors.username}
-            />
-            <TextField
-              label="Password"
-              type="password"
-              variant="outlined"
-              fullWidth
-              name="password"
-              value={values.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={touched.password && !!errors.password}
-              helperText={touched.password && errors.password}
-            />
-            <Button type="submit" variant="contained" fullWidth>
-              Login
-            </Button>
-          </form>
-        )}
-      </Formik>
+        buttonProps={{
+          children: 'Login',
+        }}
+      />
       <Button
         onClick={() => {
           navigate('register');
