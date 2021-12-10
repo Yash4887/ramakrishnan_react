@@ -1,8 +1,7 @@
 import { Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
-import React, { useState } from 'react';
-import { LocaleContext } from '../../Context/localeContext';
+import React from 'react';
 import './loginStyle.css';
 
 const loginValidate = (values) => {
@@ -87,7 +86,7 @@ const Login = () => {
         }}
         variant="text"
       >
-        Don't have an account? Please Signup
+        Don&apos;t have an account? Please Signup
       </Button>
     </div>
   );

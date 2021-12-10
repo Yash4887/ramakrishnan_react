@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 const AsyncAuthLayout = lazy(() => import('./Component/AuthLayout'));
 const AsyncHome = lazy(() => import('./Pages/Home'));
