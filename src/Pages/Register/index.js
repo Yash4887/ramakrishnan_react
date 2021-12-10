@@ -1,6 +1,6 @@
 import React from 'react';
 import FormikForm from '../../Component/FormikForm';
-import { registerFormFields, registerInitialValues } from './fields';
+import { registerFormFields, registerInitialValues, registerValidate } from './fields';
 import './registerStyle.css';
 
 const Register = () => {
@@ -13,6 +13,7 @@ const Register = () => {
       fields={registerFormFields}
       initialValues={registerInitialValues}
       onSubmit={handleRegister}
+      validate={registerValidate}
       buttonProps={{
         children: 'Register',
       }}
