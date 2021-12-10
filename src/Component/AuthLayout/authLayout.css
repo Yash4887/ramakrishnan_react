@@ -7,6 +7,7 @@ main.auth {
 
 .MuiPaper-root {
   padding: 1rem;
-  flex: 1;
+  /* flex: 1; */
   margin: 1rem;
+  width: 60vw;
 }
