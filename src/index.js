@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app';
-import LocaleProvider from './Context/localeContext';
+import { AuthProvider } from './Context/authContext';
 // import AppHook from './AppHook';
 
 import './root.css';
@@ -14,10 +14,10 @@ import './root.css';
 
 // Create Virtual DOM from provided HTML
 ReactDOM.render(
-  <LocaleProvider>
+  <AuthProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </LocaleProvider>,
+  </AuthProvider>,
   document.getElementById('root'),
 );

@@ -5,6 +5,7 @@ const AsyncAuthLayout = lazy(() => import('./Component/AuthLayout'));
 const AsyncHome = lazy(() => import('./Pages/Home'));
 const AsyncLogin = lazy(() => import('./Pages/Login'));
 const AsyncRegister = lazy(() => import('./Pages/Register'));
+const AsyncMainLayout = lazy(() => import('./Component/MainLayout'));
 
 const App = () => (
   <Routes>
@@ -33,14 +34,24 @@ const App = () => (
         }
       />
     </Route>
+
     <Route
-      path="/home"
+      path="/main"
       element={
         <Suspense fallback={<h1>Loading...</h1>}>
-          <AsyncHome />
+          <AsyncMainLayout />
         </Suspense>
       }
-    />
+    >
+      <Route
+        index
+        element={
+          <Suspense fallback={<h1>Loading...</h1>}>
+            <AsyncHome />
+          </Suspense>
+        }
+      />
+    </Route>
   </Routes>
 );
 

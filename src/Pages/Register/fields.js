@@ -1,6 +1,5 @@
 import FormikInput from '../../Component/FormikInput';
 import FormikRadio from '../../Component/FormikRadio';
-import FormikSelect from '../../Component/FormikSelect';
 
 export const registerFormFields = [
   {
@@ -39,41 +38,41 @@ export const registerFormFields = [
       return '';
     },
   },
-  {
-    component: FormikSelect,
-    name: 'hobbies',
-    label: 'Hobbies',
-    options: [
-      {
-        value: 'cricket',
-        label: 'Cricket',
-      },
-      {
-        value: 'football',
-        label: 'Football',
-      },
-      {
-        value: 'baseball',
-        label: 'Baseball',
-      },
-    ],
-    validate: (val) => {
-      if (!val) {
-        return 'Require...';
-      }
-      return '';
-    },
-  },
+  // {
+  //   component: FormikSelect,
+  //   name: 'hobbies',
+  //   label: 'Hobbies',
+  //   options: [
+  //     {
+  //       value: 'cricket',
+  //       label: 'Cricket',
+  //     },
+  //     {
+  //       value: 'football',
+  //       label: 'Football',
+  //     },
+  //     {
+  //       value: 'baseball',
+  //       label: 'Baseball',
+  //     },
+  //   ],
+  //   validate: (val) => {
+  //     if (!val) {
+  //       return 'Require...';
+  //     }
+  //     return '';
+  //   },
+  // },
   {
     component: FormikInput,
-    name: 'username',
-    label: 'Username',
+    name: 'email',
+    label: 'Email',
     validate: (val) => {
       if (!val) {
         return 'Require...';
       }
       if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val)) {
-        return 'Invalid Username';
+        return 'Invalid Email';
       }
       return '';
     },

@@ -1,4 +1,20 @@
 {
+  "users": [
+    {
+      "email": "yagnesh.modh@gmail.com",
+      "password": "$2a$10$zjFwRbbplWxWoLjHpty6due5GOfO8LqIklh6/Y3udiendv.5RFoHa",
+      "name": "Yagnesh Modh",
+      "gender": "male",
+      "id": 1
+    },
+    {
+      "email": "contact@thespecialcharacter.com",
+      "password": "$2a$10$EAJybpd7u6OAT4XWWI5fsO0Gihel1a0rEeZFJKGDw6cBpw55ToyMC",
+      "name": "Yagnesh Modh",
+      "gender": "male",
+      "id": 2
+    }
+  ],
   "todo-list": [
     {
       "text": "asdfdsf",

@@ -1,39 +1,40 @@
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import React from 'react';
+import React, { useContext } from 'react';
 import './loginStyle.css';
 import FormikForm from '../../Component/FormikForm';
 import { formFields, loginInitialValues } from './fields';
-
-const wait = (time) => new Promise((resolve) => setTimeout(resolve, time));
+import { AuthContext } from '../../Context/authContext';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { addToken } = useContext(AuthContext);
 
-  const handleLogin = async (values) => {
-    await wait(3000);
-    console.log(values);
+  const handleLogin = async (values, actions) => {
+    try {
+      const res = await fetch('http://localhost:3000/signin', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
+      const json = await res.json();
+      if (res.ok) {
+        addToken(json.accessToken);
+        navigate('/main', { replace: true });
+      }
+      throw new Error(json);
+    } catch (error) {
+      actions.setFieldError('serverError', error.message);
+    }
   };
 
   console.log('render');
 
   return (
-    <div>
-      {/* <LocaleContext.Consumer>
-        {(value) => (
-          <div>
-            <h1>{`Current Language is ${value.locale}`}</h1>
-            <Button
-              variant="text"
-              onClick={() => {
-                value.setLocale('Franch');
-              }}
-            >
-              Change Locale
-            </Button>
-          </div>
-        )}
-      </LocaleContext.Consumer> */}
+    <>
       <FormikForm
         fields={formFields}
         initialValues={loginInitialValues}
@@ -50,7 +51,7 @@ const Login = () => {
       >
         Don&apos;t have an account? Please Signup
       </Button>
-    </div>
+    </>
   );
 };
 
