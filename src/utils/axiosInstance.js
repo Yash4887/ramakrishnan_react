@@ -7,9 +7,15 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  (config) =>
+  (config) => {
     // Do something before request is sent
-    config,
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
   (error) =>
     // Do something with request error
     Promise.reject(error),

@@ -5,7 +5,7 @@ main.auth {
   align-items: center;
 }
 
-.MuiPaper-root {
+main.auth .MuiPaper-root {
   padding: 1rem;
   /* flex: 1; */
   margin: 1rem;
