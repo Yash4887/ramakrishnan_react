@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import ProductDetails from './Pages/ProductDetails';
 
 const AsyncAuthLayout = lazy(() => import('./Component/AuthLayout'));
 const AsyncHome = lazy(() => import('./Pages/Home'));
@@ -51,6 +52,9 @@ const App = () => (
           </Suspense>
         }
       />
+      <Route path="products" element={<AsyncHome />}>
+        <Route path=":productId" element={<ProductDetails />} />
+      </Route>
     </Route>
   </Routes>
 );

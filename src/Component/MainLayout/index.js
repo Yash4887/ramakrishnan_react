@@ -1,7 +1,8 @@
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Badge, Button, IconButton, Toolbar, Typography } from '@mui/material';
 import React, { useContext } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { AuthContext } from '../../Context/authContext';
 
 const MainLayout = () => {
@@ -28,6 +29,11 @@ const MainLayout = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Products
           </Typography>
+          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+            <Badge badgeContent={0} color="error">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
           <Button color="inherit" onClick={logout}>
             Logout
           </Button>

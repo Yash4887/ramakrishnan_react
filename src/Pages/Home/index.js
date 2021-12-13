@@ -19,8 +19,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Product Details</h1>
+    <>
       {products.map((x) => (
         <Card sx={{ display: 'flex', m: 2 }}>
           <CardMedia component="img" sx={{ width: 151 }} image={x.image} alt={x.title} />
@@ -48,7 +47,7 @@ const Home = () => {
           </Box>
         </Card>
       ))}
-    </div>
+    </>
   );
 };
 
