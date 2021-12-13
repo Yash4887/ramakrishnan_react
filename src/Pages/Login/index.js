@@ -3,8 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import React, { useContext } from 'react';
 import './loginStyle.css';
 import FormikForm from '../../Component/FormikForm';
+
 import { formFields, loginInitialValues } from './fields';
 import { AuthContext } from '../../Context/authContext';
+import axiosInstance from '../../utils/axiosInstance';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -12,20 +14,9 @@ const Login = () => {
 
   const handleLogin = async (values, actions) => {
     try {
-      const res = await fetch('http://localhost:3000/signin', {
-        method: 'POST',
-        body: JSON.stringify(values),
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
-      const json = await res.json();
-      if (res.ok) {
-        addToken(json.accessToken);
-        navigate('/main', { replace: true });
-      }
-      throw new Error(json);
+      const res = await axiosInstance.post('signin', values);
+      addToken(res.data.accessToken);
+      navigate('/main', { replace: true });
     } catch (error) {
       actions.setFieldError('serverError', error.message);
     }
