@@ -19,6 +19,10 @@ const Home = () => {
 
   const navigate = useNavigate();
 
+  if (!(cart || products)) {
+    return <h1>Data is not available</h1>;
+  }
+
   return (
     <>
       {products.map((x) => {

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import App from './app';
 import { AuthProvider } from './Context/authContext';
+import ErrorBoundary from './Component/ErrorBoundary';
 // import AppHook from './AppHook';
 
 import './root.css';
@@ -16,7 +17,9 @@ import './root.css';
 ReactDOM.render(
   <AuthProvider>
     <BrowserRouter>
-      <App />
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
     </BrowserRouter>
   </AuthProvider>,
   document.getElementById('root'),
