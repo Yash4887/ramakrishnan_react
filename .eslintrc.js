@@ -12,7 +12,7 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'react-hooks', 'jsx-a11y', 'import'],
   rules: {
     'object-curly-newline': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
@@ -20,5 +20,8 @@ module.exports = {
     'react/state-in-constructor': 0,
     'react/jsx-props-no-spreading': 0,
     'react/jsx-wrap-multilines': 0,
+
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
   },
 };

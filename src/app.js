@@ -1,5 +1,8 @@
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { CartProvider } from './Context/cartContext';
+import { ProductsProvider } from './Context/productsContext';
+import Cart from './Pages/Cart';
 import ProductDetails from './Pages/ProductDetails';
 
 const AsyncAuthLayout = lazy(() => import('./Component/AuthLayout'));
@@ -40,7 +43,11 @@ const App = () => (
       path="/main"
       element={
         <Suspense fallback={<h1>Loading...</h1>}>
-          <AsyncMainLayout />
+          <ProductsProvider>
+            <CartProvider>
+              <AsyncMainLayout />
+            </CartProvider>
+          </ProductsProvider>
         </Suspense>
       }
     >
@@ -52,9 +59,9 @@ const App = () => (
           </Suspense>
         }
       />
-      <Route path="products" element={<AsyncHome />}>
-        <Route path=":productId" element={<ProductDetails />} />
-      </Route>
+      <Route path=":productId" element={<ProductDetails />} />
+
+      <Route path="cart" element={<Cart />} />
     </Route>
   </Routes>
 );

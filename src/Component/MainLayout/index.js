@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { AuthContext } from '../../Context/authContext';
+import { CartContext } from '../../Context/cartContext';
 
 const MainLayout = () => {
   const { token, removeToken } = useContext(AuthContext);
@@ -29,10 +30,24 @@ const MainLayout = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Products
           </Typography>
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-            <Badge badgeContent={0} color="error">
-              <ShoppingCartIcon />
-            </Badge>
+          <IconButton
+            size="large"
+            aria-label="show 4 new mails"
+            color="inherit"
+            onClick={() => {
+              navigate('cart');
+            }}
+          >
+            <CartContext.Consumer>
+              {({ cart }) => {
+                const badgeCount = cart.reduce((p, c) => p + c.quantity, 0);
+                return (
+                  <Badge badgeContent={badgeCount} color="error">
+                    <ShoppingCartIcon />
+                  </Badge>
+                );
+              }}
+            </CartContext.Consumer>
           </IconButton>
           <Button color="inherit" onClick={logout}>
             Logout
