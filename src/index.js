@@ -1,26 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import App from './app';
 import { AuthProvider } from './Context/authContext';
 import ErrorBoundary from './Component/ErrorBoundary';
-// import AppHook from './AppHook';
 
 import './root.css';
+import store from './storeConfig';
 
-// Rule1: First Letter of Component should always Capital
-// Rule2: We can return single element from component
-// Rule3: Replace class with className(class is reserve keyword in javascript)
-// Rule4: apply style as a object and style name should be in camelcase
+store.dispatch({ type: 'CHANGE_THEME', payload: 'light' });
 
-// Create Virtual DOM from provided HTML
 ReactDOM.render(
-  <AuthProvider>
-    <BrowserRouter>
-      <ErrorBoundary>
-        <App />
-      </ErrorBoundary>
-    </BrowserRouter>
-  </AuthProvider>,
+  <Provider store={store}>
+    <AuthProvider>
+      <BrowserRouter>
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
+      </BrowserRouter>
+    </AuthProvider>
+  </Provider>,
   document.getElementById('root'),
 );
