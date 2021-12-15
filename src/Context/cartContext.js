@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
+import { useSnackbar } from 'notistack';
 import useStatus from '../Hooks/statusHook';
 import axiosInstance from '../utils/axiosInstance';
 
@@ -7,8 +8,6 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
   const { state: cartState, setLoading, setSuccess, setError } = useStatus();
-
-  console.log(cartState);
 
   const loadCartData = useCallback(async () => {
     const requestType = 'LOAD_CART';
@@ -26,6 +25,7 @@ export const CartProvider = ({ children }) => {
     const requestType = 'ADD_CART';
     try {
       setLoading({ requestType, productId: item.id });
+      // throw new Error('Api fail');
       const res = await axiosInstance.post('660/cart', {
         productId: item.id,
         quantity: 1,

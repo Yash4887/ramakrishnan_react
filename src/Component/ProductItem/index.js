@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import { CartContext } from '../../Context/cartContext';
 
 const ProductItem = ({ product, cartItem, cartIndex, isCardClickable }) => {
-  console.log('render');
   const { cartState, addToCart, deleteFromCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
 

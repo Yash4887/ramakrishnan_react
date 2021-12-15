@@ -24,13 +24,11 @@ const AppHook = ({ val, name }) => {
   // ComponentDidUpdate
   useEffect(() => {
     if (isLoaded.current === true) {
-      console.log('call on counter change');
     }
   }, [counter, greet]);
 
   // ComponentDidMount
   useEffect(() => {
-    console.log('Component mounted');
     isLoaded.current = true;
   }, []);
 

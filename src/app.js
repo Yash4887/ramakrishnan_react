@@ -1,3 +1,4 @@
+import { SnackbarProvider } from 'notistack';
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { CartProvider } from './Context/cartContext';
@@ -43,11 +44,13 @@ const App = () => (
       path="/main"
       element={
         <Suspense fallback={<h1>Loading...</h1>}>
-          <ProductsProvider>
-            <CartProvider>
-              <AsyncMainLayout />
-            </CartProvider>
-          </ProductsProvider>
+          <SnackbarProvider maxSnack={3}>
+            <ProductsProvider>
+              <CartProvider>
+                <AsyncMainLayout />
+              </CartProvider>
+            </ProductsProvider>
+          </SnackbarProvider>
         </Suspense>
       }
     >

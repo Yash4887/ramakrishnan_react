@@ -5,13 +5,13 @@ import ProductItem from '../../Component/ProductItem';
 
 const Home = () => {
   const { cart, cartState } = useContext(CartContext);
-  const { products } = useContext(ProductsContext);
+  const { products, loading } = useContext(ProductsContext);
 
   if (!(cart || products)) {
     return <h1>Data is not available</h1>;
   }
 
-  if (cartState.some((x) => x.type === 'LOAD_CART' && x.status === 'REQUEST')) {
+  if (loading || cartState.some((x) => x.type === 'LOAD_CART' && x.status === 'REQUEST')) {
     return <h1>Loading....</h1>;
   }
 

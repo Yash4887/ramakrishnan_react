@@ -7,8 +7,6 @@ const Cart = () => {
   const { cart } = useContext(CartContext);
   const { products } = useContext(ProductsContext);
 
-  console.log(cart);
-
   return (
     <>
       {cart.map((x, index) => {

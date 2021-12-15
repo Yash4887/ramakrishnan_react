@@ -1,7 +1,9 @@
+import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 
 const useStatus = () => {
   const [state, setState] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const setLoading = ({ requestType, cartId = -1, productId = -1 }) => {
     setState((val) => {
@@ -39,6 +41,7 @@ const useStatus = () => {
         return x;
       }),
     );
+    enqueueSnackbar(payload.message, { variant: 'error' });
   };
 
   return {
