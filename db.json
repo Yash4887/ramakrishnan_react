@@ -13,6 +13,20 @@
       "name": "Yagnesh Modh",
       "gender": "male",
       "id": 2
+    },
+    {
+      "email": "yash.modi@gmail.com",
+      "password": "$2a$10$J21ivJrWYiez1SjpmSOgceLrgKG7PagcJL1MulAYPYhzw.O4ZCRnu",
+      "name": "Yash Modi",
+      "gender": "male",
+      "id": 3
+    },
+    {
+      "email": "virat@inida.com",
+      "password": "$2a$10$c7d.6HqdHpHDVNyrdUzbPupblYVWpgrpP5FJ6l0WEuRigDR5OfpUS",
+      "name": "Virat",
+      "gender": "male",
+      "id": 4
     }
   ],
   "todo-list": [
@@ -293,14 +307,9 @@
   ],
   "cart": [
     {
-      "productId": 2,
-      "quantity": 1,
-      "id": 1
-    },
-    {
       "productId": 1,
-      "quantity": 1,
-      "id": 2
+      "quantity": 2,
+      "id": 1
     }
   ]
 }

@@ -1,4 +1,4 @@
-const themeInitialState = 'dark';
+const themeInitialState = 'light';
 
 // update reducer only in immutable way
 export default (state = themeInitialState, { type, payload }) => {

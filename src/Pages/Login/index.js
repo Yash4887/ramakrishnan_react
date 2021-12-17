@@ -1,33 +1,30 @@
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import React, { useContext } from 'react';
+import { connect } from 'react-redux';
 import './loginStyle.css';
 import FormikForm from '../../Component/FormikForm';
 
 import { formFields, loginInitialValues } from './fields';
 import { AuthContext } from '../../Context/authContext';
 import axiosInstance from '../../utils/axiosInstance';
+import { loginAction } from '../../actions/authActions';
 
-const Login = () => {
+const Login = ({ locale, theme, changeTheme, login }) => {
   const navigate = useNavigate();
   const { addToken } = useContext(AuthContext);
 
-  const handleLogin = async (values, actions) => {
-    try {
-      const res = await axiosInstance.post('signin', values);
-      addToken(res.data.accessToken);
-      navigate('/main', { replace: true });
-    } catch (error) {
-      actions.setFieldError('serverError', error.message);
-    }
-  };
-
   return (
     <>
+      <h1>{theme}</h1>
+      <h1>{locale}</h1>
+      <button type="button" onClick={() => changeTheme('Dark')}>
+        Change Theme
+      </button>
       <FormikForm
         fields={formFields}
         initialValues={loginInitialValues}
-        onSubmit={handleLogin}
+        onSubmit={(values, actions) => login(values, actions, navigate, addToken)}
         buttonProps={{
           children: 'Login',
         }}
@@ -44,4 +41,17 @@ const Login = () => {
   );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+  locale: state.locale,
+  theme: state.theme,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeTheme: (payload) => {
+    dispatch({ type: 'CHANGE_THEME', payload });
+  },
+  login: (values, actions, navigate, addToken) =>
+    loginAction(values, actions, navigate, addToken)(dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

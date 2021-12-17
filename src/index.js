@@ -9,8 +9,6 @@ import ErrorBoundary from './Component/ErrorBoundary';
 import './root.css';
 import store from './storeConfig';
 
-store.dispatch({ type: 'CHANGE_THEME', payload: 'light' });
-
 ReactDOM.render(
   <Provider store={store}>
     <AuthProvider>
