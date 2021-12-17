@@ -1,20 +1,29 @@
 import { AppBar, Badge, Button, IconButton, Toolbar, Typography } from '@mui/material';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { connect } from 'react-redux';
 import { AuthContext } from '../../Context/authContext';
-import { CartContext } from '../../Context/cartContext';
+import { loadProductsAction } from '../../actions/productsActions';
+import { loadCartAction } from '../../actions/cartActions';
 
-const MainLayout = () => {
+const MainLayout = ({ loadProducts, loadCart, cart: { data: cartData } }) => {
   const { token, removeToken } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    loadProducts();
+    loadCart();
+  }, []);
 
   const logout = () => {
     removeToken();
     navigate('/');
   };
+
+  const badgeCount = cartData.reduce((p, c) => p + c.quantity, 0);
 
   if (!token) {
     return <Navigate to="/" state={{ from: location }} />;
@@ -38,16 +47,9 @@ const MainLayout = () => {
               navigate('cart');
             }}
           >
-            <CartContext.Consumer>
-              {({ cart }) => {
-                const badgeCount = cart.reduce((p, c) => p + c.quantity, 0);
-                return (
-                  <Badge badgeContent={badgeCount} color="error">
-                    <ShoppingCartIcon />
-                  </Badge>
-                );
-              }}
-            </CartContext.Consumer>
+            <Badge badgeContent={badgeCount} color="error">
+              <ShoppingCartIcon />
+            </Badge>
           </IconButton>
           <Button color="inherit" onClick={logout}>
             Logout
@@ -61,4 +63,13 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout;
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  loadProducts: () => loadProductsAction()(dispatch),
+  loadCart: () => loadCartAction()(dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

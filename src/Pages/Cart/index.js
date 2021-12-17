@@ -1,20 +1,19 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 import ProductItem from '../../Component/ProductItem';
-import { CartContext } from '../../Context/cartContext';
-import { ProductsContext } from '../../Context/productsContext';
 
-const Cart = () => {
-  const { cart } = useContext(CartContext);
-  const { products } = useContext(ProductsContext);
+const Cart = ({ cart, products }) => (
+  <>
+    {cart.data.map((x, index) => {
+      const product = products.data.find((item) => item.id === x.productId);
+      return <ProductItem key={x.id} product={product} cartItem={x} cartIndex={index} />;
+    })}
+  </>
+);
 
-  return (
-    <>
-      {cart.map((x, index) => {
-        const product = products.find((item) => item.id === x.productId);
-        return <ProductItem key={x.id} product={product} cartItem={x} cartIndex={index} />;
-      })}
-    </>
-  );
-};
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+  products: state.products,
+});
 
-export default Cart;
+export default connect(mapStateToProps)(Cart);

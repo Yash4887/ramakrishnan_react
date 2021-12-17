@@ -1,13 +1,27 @@
 import { LoadingButton } from '@mui/lab';
 import { Card, CardActions, CardContent, CardMedia, Rating, Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { CartContext } from '../../Context/cartContext';
+import {
+  addCartItemAction,
+  deleteCartItemAction,
+  updateCartItemAction,
+} from '../../actions/cartActions';
 
-const ProductItem = ({ product, cartItem, cartIndex, isCardClickable }) => {
-  const { cartState, addToCart, deleteFromCart, updateQuantity } = useContext(CartContext);
+const ProductItem = ({
+  product,
+  cartItem,
+  cartIndex,
+  isCardClickable,
+  addCartItem,
+  updateCartItem,
+  deleteCartItem,
+  cart: { data: cartState },
+}) => {
+  // const { cartState, addToCart, deleteFromCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -55,7 +69,7 @@ const ProductItem = ({ product, cartItem, cartIndex, isCardClickable }) => {
                   )}
                   onClick={(event) => {
                     event.stopPropagation();
-                    updateQuantity(cartIndex, 1);
+                    updateCartItem(cartItem, 1);
                   }}
                 >
                   +
@@ -75,9 +89,9 @@ const ProductItem = ({ product, cartItem, cartIndex, isCardClickable }) => {
                   onClick={(event) => {
                     event.stopPropagation();
                     if (cartItem.quantity <= 1) {
-                      deleteFromCart(cartItem.id, cartIndex);
+                      deleteCartItem(cartItem);
                     } else {
-                      updateQuantity(cartIndex, -1);
+                      updateCartItem(cartItem, -1);
                     }
                   }}
                 >
@@ -97,7 +111,7 @@ const ProductItem = ({ product, cartItem, cartIndex, isCardClickable }) => {
               sx={{ mt: 2 }}
               onClick={(event) => {
                 event.stopPropagation();
-                addToCart(product);
+                addCartItem(product);
               }}
             >
               Add to Cart
@@ -136,4 +150,14 @@ ProductItem.defaultProps = {
   cartItem: null,
 };
 
-export default ProductItem;
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addCartItem: (item) => addCartItemAction(item)(dispatch),
+  updateCartItem: (item, quantity) => updateCartItemAction(item, quantity)(dispatch),
+  deleteCartItem: (item) => deleteCartItemAction(item)(dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

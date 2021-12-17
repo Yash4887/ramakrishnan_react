@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import ProductItem from '../../Component/ProductItem';
-import { CartContext } from '../../Context/cartContext';
 import axiosInstance from '../../utils/axiosInstance';
 
-const ProductDetails = () => {
+const ProductDetails = ({ cart }) => {
   const { productId } = useParams();
   const { state } = useLocation();
 
@@ -24,10 +24,8 @@ const ProductDetails = () => {
     }
   }, [productId, state?.product]);
 
-  const { cart } = useContext(CartContext);
-
-  const cartIndex = cart.findIndex((x) => x.productId === Number(productId));
-  const cartItem = cart[cartIndex];
+  const cartIndex = cart.data.findIndex((x) => x.productId === Number(productId));
+  const cartItem = cart.data[cartIndex];
 
   if (!prod) {
     return <h1>Loading...</h1>;
@@ -36,4 +34,8 @@ const ProductDetails = () => {
   return <ProductItem product={prod} cartItem={cartItem} cartIndex={cartIndex} />;
 };
 
-export default ProductDetails;
+const mapStateToProps = (state) => ({
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(ProductDetails);

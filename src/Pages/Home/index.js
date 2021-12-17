@@ -1,25 +1,30 @@
-import React, { useContext } from 'react';
-import { CartContext } from '../../Context/cartContext';
-import { ProductsContext } from '../../Context/productsContext';
+import React from 'react';
+import { connect } from 'react-redux';
 import ProductItem from '../../Component/ProductItem';
 
-const Home = () => {
-  const { cart, cartState } = useContext(CartContext);
-  const { products, loading } = useContext(ProductsContext);
+const Home = ({
+  cart: { loadingCart, errorCart, data: cartData },
+  products: { loadingProducts, errorProducts, data: productsData },
+}) => {
+  // const { products, loading } = useContext(ProductsContext);
 
-  if (!(cart || products)) {
-    return <h1>Data is not available</h1>;
+  if (loadingProducts || loadingCart) {
+    return <h1>Loading...</h1>;
   }
 
-  if (loading || cartState.some((x) => x.type === 'LOAD_CART' && x.status === 'REQUEST')) {
-    return <h1>Loading....</h1>;
+  if (errorProducts) {
+    return <h1>{errorProducts.message}</h1>;
+  }
+
+  if (errorCart) {
+    return <h1>{errorCart.message}</h1>;
   }
 
   return (
     <>
-      {products.map((x) => {
-        const cartIndex = cart.findIndex((item) => item.productId === x.id);
-        const cartItem = cart[cartIndex];
+      {productsData.map((x) => {
+        const cartIndex = cartData.findIndex((item) => item.productId === x.id);
+        const cartItem = cartData[cartIndex];
         return (
           <ProductItem
             key={x.id}
@@ -34,4 +39,9 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state) => ({
+  products: state.products,
+  cart: state.cart,
+});
+
+export default connect(mapStateToProps)(Home);
