@@ -4,8 +4,8 @@ import ProductItem from '../../Component/ProductItem';
 
 const Cart = ({ cart, products }) => (
   <>
-    {cart.data.map((x, index) => {
-      const product = products.data.find((item) => item.id === x.productId);
+    {cart.map((x, index) => {
+      const product = products.find((item) => item.id === x.productId);
       return <ProductItem key={x.id} product={product} cartItem={x} cartIndex={index} />;
     })}
   </>

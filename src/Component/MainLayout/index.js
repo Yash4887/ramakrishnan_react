@@ -8,7 +8,7 @@ import { AuthContext } from '../../Context/authContext';
 import { loadProductsAction } from '../../actions/productsActions';
 import { loadCartAction } from '../../actions/cartActions';
 
-const MainLayout = ({ loadProducts, loadCart, cart: { data: cartData } }) => {
+const MainLayout = ({ loadProducts, loadCart, cart }) => {
   const { token, removeToken } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ const MainLayout = ({ loadProducts, loadCart, cart: { data: cartData } }) => {
     navigate('/');
   };
 
-  const badgeCount = cartData.reduce((p, c) => p + c.quantity, 0);
+  const badgeCount = cart.reduce((p, c) => p + c.quantity, 0);
 
   if (!token) {
     return <Navigate to="/" state={{ from: location }} />;

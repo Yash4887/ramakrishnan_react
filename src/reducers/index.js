@@ -4,6 +4,8 @@ import themeReducer from './themeReducer';
 import userReducer from './userReducer';
 import productsReducer from './productsReducer';
 import cartReducer from './cartReducer';
+import loadingReducer from './loadingReducer';
+import errorReducer from './errorReducer';
 
 export default combineReducers({
   locale: localeReducer,
@@ -11,4 +13,6 @@ export default combineReducers({
   user: userReducer,
   products: productsReducer,
   cart: cartReducer,
+  loading: loadingReducer,
+  error: errorReducer,
 });

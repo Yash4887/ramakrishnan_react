@@ -19,9 +19,8 @@ const ProductItem = ({
   addCartItem,
   updateCartItem,
   deleteCartItem,
-  cart: { data: cartState },
+  cart,
 }) => {
-  // const { cartState, addToCart, deleteFromCart, updateQuantity } = useContext(CartContext);
   const navigate = useNavigate();
 
   return (
@@ -60,7 +59,7 @@ const ProductItem = ({
               <Box sx={{ my: 2, display: 'flex', alignItems: 'center' }}>
                 <LoadingButton
                   variant="outlined"
-                  loading={cartState.some(
+                  loading={cart.some(
                     (item) =>
                       item.type === 'UPDATE_CART' &&
                       item.status === 'REQUEST' &&
@@ -79,7 +78,7 @@ const ProductItem = ({
                 </Typography>
                 <LoadingButton
                   variant="outlined"
-                  loading={cartState.some(
+                  loading={cart.some(
                     (item) =>
                       item.type === (cartItem.quantity <= 1 ? 'DELETE_CART' : 'UPDATE_CART') &&
                       item.status === 'REQUEST' &&
@@ -102,7 +101,7 @@ const ProductItem = ({
           ) : (
             <LoadingButton
               variant="contained"
-              loading={cartState.some(
+              loading={cart.some(
                 (item) =>
                   item.type === 'ADD_CART' &&
                   item.status === 'REQUEST' &&

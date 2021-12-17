@@ -24,8 +24,8 @@ const ProductDetails = ({ cart }) => {
     }
   }, [productId, state?.product]);
 
-  const cartIndex = cart.data.findIndex((x) => x.productId === Number(productId));
-  const cartItem = cart.data[cartIndex];
+  const cartIndex = cart.findIndex((x) => x.productId === Number(productId));
+  const cartItem = cart[cartIndex];
 
   if (!prod) {
     return <h1>Loading...</h1>;

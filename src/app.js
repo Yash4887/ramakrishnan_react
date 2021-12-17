@@ -45,11 +45,7 @@ const App = () => (
       element={
         <Suspense fallback={<h1>Loading...</h1>}>
           <SnackbarProvider maxSnack={3}>
-            <ProductsProvider>
-              <CartProvider>
-                <AsyncMainLayout />
-              </CartProvider>
-            </ProductsProvider>
+            <AsyncMainLayout />
           </SnackbarProvider>
         </Suspense>
       }

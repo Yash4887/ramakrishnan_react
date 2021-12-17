@@ -4,6 +4,7 @@ export const loadCartAction = () => async (dispatch) => {
   try {
     dispatch({ type: 'LOAD_CART_REQUEST' });
     const res = await axiosInstance.get('660/cart');
+    // throw new Error('hello some thing wrong..');
     dispatch({ type: 'LOAD_CART_SUCCESS', payload: res.data });
   } catch (error) {
     dispatch({ type: 'LOAD_CART_FAIL', payload: error });
