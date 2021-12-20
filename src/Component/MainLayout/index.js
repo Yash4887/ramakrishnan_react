@@ -6,8 +6,6 @@ import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { connect } from 'react-redux';
 import { AuthContext } from '../../Context/authContext';
-import { loadProductsAction } from '../../actions/productsActions';
-import { loadCartAction } from '../../actions/cartActions';
 import { cartPropTypes } from '../../constants/propTypesConstant';
 
 const MainLayout = ({ loadProducts, loadCart, cart }) => {
@@ -18,11 +16,10 @@ const MainLayout = ({ loadProducts, loadCart, cart }) => {
   useEffect(() => {
     loadProducts();
     loadCart();
-  }, []);
+  }, [loadProducts, loadCart]);
 
   const logout = () => {
     removeToken();
-    navigate('/');
   };
 
   const badgeCount = cart.reduce((p, c) => p + c.quantity, 0);
@@ -76,8 +73,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  loadProducts: () => loadProductsAction()(dispatch),
-  loadCart: () => loadCartAction()(dispatch),
+  loadProducts: () => dispatch({ type: 'LOAD_PRODUCTS_REQUEST' }),
+  loadCart: () => dispatch({ type: 'LOAD_CART_REQUEST' }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

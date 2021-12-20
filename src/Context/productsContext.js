@@ -50,8 +50,6 @@ export const ProductsProvider = ({ children }) => {
     children: PropTypes.element.isRequired,
   };
 
-  console.log(state);
-
   useEffect(() => {
     loadProductsData();
   }, [loadProductsData]);

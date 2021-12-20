@@ -5,11 +5,6 @@ import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  addCartItemAction,
-  deleteCartItemAction,
-  updateCartItemAction,
-} from '../../actions/cartActions';
 
 const ProductItem = ({
   product,
@@ -64,7 +59,7 @@ const ProductItem = ({
                   loading={isUpdateCartLoading}
                   onClick={(event) => {
                     event.stopPropagation();
-                    updateCartItem(cartItem, 1);
+                    updateCartItem({ ...cartItem, quantity: cartItem.quantity + 1 });
                   }}
                 >
                   +
@@ -80,7 +75,7 @@ const ProductItem = ({
                     if (cartItem.quantity <= 1) {
                       deleteCartItem(cartItem);
                     } else {
-                      updateCartItem(cartItem, -1);
+                      updateCartItem({ ...cartItem, quantity: cartItem.quantity - 1 });
                     }
                   }}
                 >
@@ -141,7 +136,6 @@ ProductItem.defaultProps = {
 };
 
 const mapStateToProps = (state, props) => {
-  console.log(props);
   return {
     cart: state.cart,
     isAddCartLoading: !!state.loading[`ADD_CART_ITEM_${props?.product?.id}`],
@@ -151,9 +145,12 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addCartItem: (item) => addCartItemAction(item)(dispatch),
-  updateCartItem: (item, quantity) => updateCartItemAction(item, quantity)(dispatch),
-  deleteCartItem: (item) => deleteCartItemAction(item)(dispatch),
+  addCartItem: (item) =>
+    dispatch({ type: 'ADD_CART_ITEM_REQUEST', payload: item, loadingId: item.id }),
+  updateCartItem: (item) =>
+    dispatch({ type: 'UPDATE_CART_ITEM_REQUEST', payload: item, loadingId: item.id }),
+  deleteCartItem: (item) =>
+    dispatch({ type: 'DELETE_CART_ITEM_REQUEST', payload: item, loadingId: item.id }),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductItem);

@@ -19,7 +19,7 @@ const Login = ({ login }) => {
       <FormikForm
         fields={formFields}
         initialValues={loginInitialValues}
-        onSubmit={(values, actions) => login(values, actions, navigate, addToken)}
+        onSubmit={(...props) => login(...props, addToken)}
         buttonProps={{
           children: 'Login',
         }}
@@ -41,8 +41,8 @@ Login.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  login: (values, actions, navigate, addToken) =>
-    loginAction(values, actions, navigate, addToken)(dispatch),
+  login: (payload, actions, addToken) =>
+    dispatch({ type: 'LOGIN_REQUEST', payload, actions, addToken }),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

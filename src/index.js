@@ -13,13 +13,13 @@ import store from './storeConfig';
 // 2. Wrap App with Provider which require store as prop
 ReactDOM.render(
   <Provider store={store}>
-    <AuthProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <AuthProvider>
         <ErrorBoundary>
           <App />
         </ErrorBoundary>
-      </BrowserRouter>
-    </AuthProvider>
+      </AuthProvider>
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
 );
