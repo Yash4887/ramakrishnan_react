@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ErrorBoundary extends Component {
   constructor(props) {
@@ -11,10 +12,10 @@ class ErrorBoundary extends Component {
     return { hasError: !!error };
   }
 
-  componentDidCatch(error, errorInfo) {
-    // You can also log the error to an error reporting service
-    // logErrorToMyService(error, errorInfo);
-  }
+  // componentDidCatch(error, errorInfo) {
+  //   // You can also log the error to an error reporting service
+  //   // logErrorToMyService(error, errorInfo);
+  // }
 
   render() {
     const { hasError } = this.state;
@@ -27,5 +28,9 @@ class ErrorBoundary extends Component {
     return children;
   }
 }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.element.isRequired,
+};
 
 export default ErrorBoundary;

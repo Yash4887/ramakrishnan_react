@@ -1,4 +1,5 @@
 import { TextField } from '@mui/material';
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const FormikInput = ({ field, form: { touched, errors }, ...props }) => (
@@ -11,5 +12,16 @@ const FormikInput = ({ field, form: { touched, errors }, ...props }) => (
     {...props}
   />
 );
+
+FormikInput.propTypes = {
+  field: PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+    onChange: PropTypes.func.isRequired,
+    onBlur: PropTypes.func.isRequired,
+  }).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  form: PropTypes.object.isRequired,
+};
 
 export default FormikInput;

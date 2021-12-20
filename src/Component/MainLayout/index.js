@@ -1,4 +1,5 @@
 import { AppBar, Badge, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import PropTypes from 'prop-types';
 import React, { useContext, useEffect } from 'react';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { connect } from 'react-redux';
 import { AuthContext } from '../../Context/authContext';
 import { loadProductsAction } from '../../actions/productsActions';
 import { loadCartAction } from '../../actions/cartActions';
+import { cartPropTypes } from '../../constants/propTypesConstant';
 
 const MainLayout = ({ loadProducts, loadCart, cart }) => {
   const { token, removeToken } = useContext(AuthContext);
@@ -61,6 +63,12 @@ const MainLayout = ({ loadProducts, loadCart, cart }) => {
       </main>
     </>
   );
+};
+
+MainLayout.propTypes = {
+  loadProducts: PropTypes.func.isRequired,
+  loadCart: PropTypes.func.isRequired,
+  cart: cartPropTypes.isRequired,
 };
 
 const mapStateToProps = (state) => ({

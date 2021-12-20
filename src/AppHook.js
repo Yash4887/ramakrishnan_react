@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect, memo, useRef } from 'react';
 import Child1 from './Child1';
 

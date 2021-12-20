@@ -1,6 +1,7 @@
-import { Alert, Button, Snackbar, Typography } from '@mui/material';
+/* eslint-disable react/prop-types */
+import React from 'react';
+import { Alert, Button, Snackbar } from '@mui/material';
 import { FastField, Form, Formik } from 'formik';
-import React, { useState } from 'react';
 
 const FormikForm = ({ fields, buttonProps, ...rest }) => (
   <Formik {...rest}>

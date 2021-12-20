@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { PureComponent } from 'react';
 // import shallowCompare from 'react-addons-shallow-compare';
 
