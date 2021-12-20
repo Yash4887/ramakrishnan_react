@@ -19,7 +19,9 @@ const ProductItem = ({
   addCartItem,
   updateCartItem,
   deleteCartItem,
-  cart,
+  isAddCartLoading,
+  isUpdateCartLoading,
+  isDeleteCartLoading,
 }) => {
   const navigate = useNavigate();
 
@@ -59,13 +61,7 @@ const ProductItem = ({
               <Box sx={{ my: 2, display: 'flex', alignItems: 'center' }}>
                 <LoadingButton
                   variant="outlined"
-                  loading={cart.some(
-                    (item) =>
-                      item.type === 'UPDATE_CART' &&
-                      item.status === 'REQUEST' &&
-                      item.productId === product.id &&
-                      item.cartId === cartItem.id,
-                  )}
+                  loading={isUpdateCartLoading}
                   onClick={(event) => {
                     event.stopPropagation();
                     updateCartItem(cartItem, 1);
@@ -78,13 +74,7 @@ const ProductItem = ({
                 </Typography>
                 <LoadingButton
                   variant="outlined"
-                  loading={cart.some(
-                    (item) =>
-                      item.type === (cartItem.quantity <= 1 ? 'DELETE_CART' : 'UPDATE_CART') &&
-                      item.status === 'REQUEST' &&
-                      item.productId === (cartItem.quantity <= 1 ? -1 : product.id) &&
-                      item.cartId === cartItem.id,
-                  )}
+                  loading={cartItem.quantity <= 1 ? isDeleteCartLoading : isUpdateCartLoading}
                   onClick={(event) => {
                     event.stopPropagation();
                     if (cartItem.quantity <= 1) {
@@ -101,12 +91,7 @@ const ProductItem = ({
           ) : (
             <LoadingButton
               variant="contained"
-              loading={cart.some(
-                (item) =>
-                  item.type === 'ADD_CART' &&
-                  item.status === 'REQUEST' &&
-                  item.productId === product.id,
-              )}
+              loading={isAddCartLoading}
               sx={{ mt: 2 }}
               onClick={(event) => {
                 event.stopPropagation();
@@ -140,8 +125,14 @@ ProductItem.propTypes = {
     quantity: PropTypes.number,
     id: PropTypes.number,
   }),
+  addCartItem: PropTypes.func.isRequired,
+  updateCartItem: PropTypes.func.isRequired,
+  deleteCartItem: PropTypes.func.isRequired,
   cartIndex: PropTypes.number.isRequired,
   isCardClickable: PropTypes.bool,
+  isAddCartLoading: PropTypes.bool.isRequired,
+  isUpdateCartLoading: PropTypes.bool.isRequired,
+  isDeleteCartLoading: PropTypes.bool.isRequired,
 };
 
 ProductItem.defaultProps = {
@@ -149,9 +140,15 @@ ProductItem.defaultProps = {
   cartItem: null,
 };
 
-const mapStateToProps = (state) => ({
-  cart: state.cart,
-});
+const mapStateToProps = (state, props) => {
+  console.log(props);
+  return {
+    cart: state.cart,
+    isAddCartLoading: !!state.loading[`ADD_CART_ITEM_${props?.product?.id}`],
+    isUpdateCartLoading: !!state.loading[`UPDATE_CART_ITEM_${props?.cartItem?.id}`],
+    isDeleteCartLoading: !!state.loading[`DELETE_CART_ITEM_${props?.cartItem?.id}`],
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   addCartItem: (item) => addCartItemAction(item)(dispatch),

@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useEffect, useMemo, useState } from 'react';
-import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 import useStatus from '../Hooks/statusHook';
 import axiosInstance from '../utils/axiosInstance';
 
@@ -90,4 +90,8 @@ export const CartProvider = ({ children }) => {
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
+};
+
+CartProvider.propTypes = {
+  children: PropTypes.element.isRequired,
 };

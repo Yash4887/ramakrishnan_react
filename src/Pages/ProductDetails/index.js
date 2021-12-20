@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import ProductItem from '../../Component/ProductItem';
+import { cartPropTypes } from '../../constants/propTypesConstant';
 import axiosInstance from '../../utils/axiosInstance';
 
 const ProductDetails = ({ cart }) => {
@@ -32,6 +33,10 @@ const ProductDetails = ({ cart }) => {
   }
 
   return <ProductItem product={prod} cartItem={cartItem} cartIndex={cartIndex} />;
+};
+
+ProductDetails.propTypes = {
+  cart: cartPropTypes.isRequired,
 };
 
 const mapStateToProps = (state) => ({

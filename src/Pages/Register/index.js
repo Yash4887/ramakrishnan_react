@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { registrationAction } from '../../actions/authActions';
 import FormikForm from '../../Component/FormikForm';
 import { AuthContext } from '../../Context/authContext';
-import axiosInstance from '../../utils/axiosInstance';
 import { registerFormFields, registerInitialValues, registerValidate } from './fields';
 import './registerStyle.css';
 
@@ -26,6 +26,10 @@ const Register = ({ register }) => {
       }}
     />
   );
+};
+
+Register.propTypes = {
+  register: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = () => ({});

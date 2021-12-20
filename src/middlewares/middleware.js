@@ -1,4 +1,4 @@
-const logger = (store) => (next) => (action) => {
+const logger = () => (next) => (action) => {
   console.log(action);
   // API Call
   next(action);

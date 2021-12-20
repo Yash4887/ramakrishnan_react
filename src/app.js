@@ -1,8 +1,6 @@
 import { SnackbarProvider } from 'notistack';
 import React, { Suspense, lazy } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { CartProvider } from './Context/cartContext';
-import { ProductsProvider } from './Context/productsContext';
 import Cart from './Pages/Cart';
 import ProductDetails from './Pages/ProductDetails';
 

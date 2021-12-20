@@ -4,7 +4,7 @@ module.exports = {
     es2021: true,
   },
   parser: '@babel/eslint-parser',
-  extends: ['plugin:react/recommended', 'airbnb'],
+  extends: ['plugin:react/recommended', 'airbnb', 'plugin:prettier/recommended'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -12,9 +12,10 @@ module.exports = {
     ecmaVersion: 13,
     sourceType: 'module',
   },
-  plugins: ['react', 'react-hooks', 'jsx-a11y', 'import'],
+  plugins: ['react', 'prettier', 'react-hooks', 'jsx-a11y', 'import'],
   rules: {
     'object-curly-newline': 0,
+    'default-param-last': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'react/function-component-definition': 0,
     'react/state-in-constructor': 0,
@@ -23,5 +24,7 @@ module.exports = {
 
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+
+    'prettier/prettier': 'error',
   },
 };

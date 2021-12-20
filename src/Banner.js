@@ -118,7 +118,7 @@ class Banner extends Component {
 
   static getDerivedStateFromError(error) {
     return {
-      error: error,
+      error,
     };
   }
 

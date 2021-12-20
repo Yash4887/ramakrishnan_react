@@ -1,4 +1,5 @@
 import { useSnackbar } from 'notistack';
+import PropTypes from 'prop-types';
 import React, { createContext, useCallback, useEffect, useReducer } from 'react';
 import axiosInstance from '../utils/axiosInstance';
 
@@ -44,6 +45,10 @@ export const ProductsProvider = ({ children }) => {
       dispatch({ type: 'LOAD_PRODUCTS_FAIL', payload: err });
     }
   }, []);
+
+  ProductsProvider.propTypes = {
+    children: PropTypes.element.isRequired,
+  };
 
   console.log(state);
 

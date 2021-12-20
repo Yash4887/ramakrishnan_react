@@ -8,25 +8,21 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    const updatedConfig = config;
     // Do something before request is sent
     const token = localStorage.getItem('token');
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      updatedConfig.headers.Authorization = `Bearer ${token}`;
     }
 
-    return config;
+    return updatedConfig;
   },
-  (error) =>
-    // Do something with request error
-    Promise.reject(error),
+  (error) => Promise.reject(error),
 );
 
 // Add a response interceptor
 axiosInstance.interceptors.response.use(
-  (response) =>
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
-    response,
+  (response) => response,
   (error) => {
     if (error?.response?.data) {
       return Promise.reject(new Error(error.response.data));

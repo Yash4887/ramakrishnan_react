@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ProductItem from '../../Component/ProductItem';
+import { cartPropTypes, productsPropTypes } from '../../constants/propTypesConstant';
 
 const Home = ({ cart, products, productsLoading, cartLoading, productsError, cartError }) => {
   if (productsLoading || cartLoading) {
@@ -34,13 +36,27 @@ const Home = ({ cart, products, productsLoading, cartLoading, productsError, car
   );
 };
 
+Home.propTypes = {
+  cart: cartPropTypes.isRequired,
+  products: productsPropTypes.isRequired,
+  productsLoading: PropTypes.bool.isRequired,
+  cartLoading: PropTypes.bool.isRequired,
+  productsError: PropTypes.objectOf(Error),
+  cartError: PropTypes.objectOf(Error),
+};
+
+Home.defaultProps = {
+  productsError: undefined,
+  cartError: undefined,
+};
+
 const mapStateToProps = (state) => ({
   products: state.products,
   cart: state.cart,
-  productsLoading: state.loading['LOAD_PRODUCTS'],
-  productsError: state.error['LOAD_PRODUCTS'],
-  cartLoading: state.loading['LOAD_CART'],
-  cartError: state.error['LOAD_CART'],
+  productsLoading: !!state.loading.LOAD_PRODUCTS,
+  productsError: state.error.LOAD_PRODUCTS,
+  cartLoading: !!state.loading.LOAD_CART,
+  cartError: state.error.LOAD_CART,
 });
 
 export default connect(mapStateToProps)(Home);

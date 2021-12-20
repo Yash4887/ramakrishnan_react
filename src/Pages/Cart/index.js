@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import ProductItem from '../../Component/ProductItem';
+import { cartPropTypes, productsPropTypes } from '../../constants/propTypesConstant';
 
 const Cart = ({ cart, products }) => (
   <>
@@ -10,6 +11,11 @@ const Cart = ({ cart, products }) => (
     })}
   </>
 );
+
+Cart.propTypes = {
+  cart: cartPropTypes.isRequired,
+  products: productsPropTypes.isRequired,
+};
 
 const mapStateToProps = (state) => ({
   cart: state.cart,
